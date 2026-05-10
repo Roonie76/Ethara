@@ -4,7 +4,7 @@ import { useApp } from '../../context/AppContext';
 import { 
   LayoutDashboard, 
   FolderKanban, 
-  Hash, 
+  CheckSquare, 
   Users, 
   LogOut, 
   X 
@@ -52,7 +52,7 @@ export default function Sidebar({ isOpen, onClose }) {
             <FolderKanban size={15} /> Projects
           </NavLink>
           <NavLink to="/tasks" className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}>
-            <Hash size={15} /> Issues
+            <CheckSquare size={15} /> Tasks
           </NavLink>
         </div>
 

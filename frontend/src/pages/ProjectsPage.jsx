@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { Plus, Trash2, Users, FolderOpen, Search, User } from 'lucide-react';
 import ProjectModal from '../components/ProjectModal';
-import { Skeleton } from '../components/Skeleton';
+import { LoadingShell, Skeleton } from '../components/Skeleton';
 
 import StatusBadge from '../components/StatusBadge';
 
@@ -85,7 +85,11 @@ export default function ProjectsPage() {
 
       <div className="stats-grid">
         {loading ? (
-          [1, 2, 3].map(i => <Skeleton key={i} height="260px" borderRadius="12px" />)
+          <LoadingShell minHeight="50vh">
+            <div className="stats-grid" style={{ marginBottom: 0 }}>
+              {[1, 2, 3].map(i => <Skeleton key={i} height="260px" borderRadius="12px" />)}
+            </div>
+          </LoadingShell>
         ) : (
           <>
             {filtered.map(project => {

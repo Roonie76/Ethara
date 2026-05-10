@@ -23,8 +23,25 @@ export const Skeleton = ({ width, height, borderRadius = '4px', className = '' }
   );
 };
 
+export const LoadingShell = ({ children, minHeight = '60vh' }) => (
+  <div
+    className="loading-shell"
+    style={{
+      minHeight,
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+  >
+    <div style={{ width: '100%', maxWidth: '960px' }}>
+      {children}
+    </div>
+  </div>
+);
+
 export const DashboardSkeleton = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '20px 0' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
       {[1, 2, 3, 4].map(i => <Skeleton key={i} height="100px" borderRadius="12px" />)}
     </div>
@@ -32,6 +49,21 @@ export const DashboardSkeleton = () => (
       <Skeleton height="300px" borderRadius="12px" />
       <Skeleton height="300px" borderRadius="12px" />
     </div>
+  </div>
+);
+
+export const CenteredSpinner = () => (
+  <div className="app-loading-screen">
+    <div
+      style={{
+        width: '32px',
+        height: '32px',
+        borderRadius: '50%',
+        border: '2px solid var(--blue)',
+        borderTopColor: 'transparent',
+        animation: 'spin 0.7s linear infinite',
+      }}
+    />
   </div>
 );
 

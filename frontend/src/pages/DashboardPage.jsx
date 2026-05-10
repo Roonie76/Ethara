@@ -14,7 +14,7 @@ import {
   ArrowDownRight
 } from 'lucide-react';
 import { isPast, parseISO, formatDistanceToNow } from 'date-fns';
-import { DashboardSkeleton } from '../components/Skeleton';
+import { DashboardSkeleton, LoadingShell } from '../components/Skeleton';
 import TaskDetailModal from '../components/TaskDetailModal';
 
 export default function DashboardPage() {
@@ -115,11 +115,22 @@ export default function DashboardPage() {
     return canEdit(task);
   }
 
+  function canChangeMeta(task) {
+    if (isAdmin) return true;
+    if (!task || !currentUser) return false;
+    const project = projects?.find(p => Number(p.id) === Number(task.projectId));
+    return Number(project?.leadId) === Number(currentUser.id);
+  }
+
   return (
     <div className="content-area">
 
 
-      {loading ? <DashboardSkeleton /> : (
+      {loading ? (
+        <LoadingShell>
+          <DashboardSkeleton />
+        </LoadingShell>
+      ) : (
         <>
           {/* Header */}
           <div className="dashboard-header" style={{ marginBottom: '32px' }}>
@@ -600,6 +611,7 @@ export default function DashboardPage() {
         onUpdate={updateTaskField}
         canEdit={canEdit}
         canMove={canMove}
+        canChangeMeta={canChangeMeta}
       />
     </div>
   );

@@ -8,16 +8,13 @@ import ProjectsPage from './pages/ProjectsPage';
 import TasksPage from './pages/TasksPage';
 import MembersPage from './pages/MembersPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
+import { CenteredSpinner } from './components/Skeleton';
 import './App.css';
 
 function App() {
   const { currentUser, loading } = useApp();
 
-  if (loading) return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: 'var(--gray-50)' }}>
-      <div style={{ width: '32px', height: '32px', borderRadius: '50%', border: '2px solid var(--blue)', borderTopColor: 'transparent', animation: 'spin 0.7s linear infinite' }} />
-    </div>
-  );
+  if (loading) return <CenteredSpinner />;
 
   return (
     <Routes>

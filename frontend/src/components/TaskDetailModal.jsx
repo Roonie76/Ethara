@@ -12,7 +12,7 @@ export default function TaskDetailModal({
   onUpdate,
   canEdit,
   canMove,
-  canChangeMeta
+  canChangeMeta = () => false
 }) {
   if (!task) return null;
 

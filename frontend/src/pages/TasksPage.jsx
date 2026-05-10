@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { Plus, Search, CheckSquare, AlertCircle, CheckCircle2, Circle, Trash2, Layout, List as ListIcon, X } from 'lucide-react';
-import { TaskListSkeleton } from '../components/Skeleton';
+import { LoadingShell, TaskListSkeleton } from '../components/Skeleton';
 
 import StatusBadge from '../components/StatusBadge';
 import KanbanBoard from '../components/KanbanBoard';
@@ -143,14 +143,14 @@ export default function TasksPage() {
         </div>
         <div className="top-actions">
           <button className="btn-primary" onClick={() => setShowForm(true)}>
-            <Plus size={13} /> New Issue
+            <Plus size={13} /> New Task
           </button>
         </div>
       </div>
 
       <div className="page-header tasks-page-header">
         <div className="header-text">
-          <h1>Issues</h1>
+          <h1>Tasks</h1>
           <p>Manage and track workspace tasks</p>
         </div>
         
@@ -191,7 +191,7 @@ export default function TasksPage() {
         <div className="card" style={{ marginBottom: '20px' }}>
           <form onSubmit={handleCreate} className="task-create-form" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ fontSize: '13px', fontWeight: '600', color: 'var(--gray-900)' }}>New Issue</div>
+              <div style={{ fontSize: '13px', fontWeight: '600', color: 'var(--gray-900)' }}>New Task</div>
               <button 
                 type="button" 
                 onClick={() => setShowForm(false)} 
@@ -207,7 +207,7 @@ export default function TasksPage() {
             )}
             <div className="task-form-row-2" style={{ display: 'grid', gap: '12px' }}>
               <div className="search-container" style={{ width: '100%' }}>
-                <input className="search-input" placeholder="Issue title" value={newTask.title}
+                <input className="search-input" placeholder="Task title" value={newTask.title}
                   onChange={e => setNewTask({ ...newTask, title: e.target.value })} required />
               </div>
               <div className="search-container" style={{ width: '100%' }}>
@@ -283,9 +283,11 @@ export default function TasksPage() {
 
       <div className="content-body">
         {loading ? (
-          <div className="card" style={{ padding: '16px' }}>
-            <TaskListSkeleton />
-          </div>
+          <LoadingShell>
+            <div className="card" style={{ padding: '16px' }}>
+              <TaskListSkeleton />
+            </div>
+          </LoadingShell>
         ) : view === 'list' ? (
           <div className="card" style={{ padding: 0 }}>
             <div className="task-list-header">

@@ -12,7 +12,7 @@ import {
   MoreVertical
 } from 'lucide-react';
 import StatusBadge from '../components/StatusBadge';
-import { Skeleton } from '../components/Skeleton';
+import { LoadingShell, Skeleton } from '../components/Skeleton';
 import TaskDetailModal from '../components/TaskDetailModal';
 import KanbanBoard from '../components/KanbanBoard';
 import ProjectModal from '../components/ProjectModal';
@@ -52,7 +52,13 @@ export default function ProjectDetailPage() {
     await updateTaskStatus(parseInt(draggableId), destination.droppableId);
   };
 
-  if (loading) return <div className="content-area"><Skeleton height="400px" /></div>;
+  if (loading) return (
+    <div className="content-area">
+      <LoadingShell>
+        <Skeleton height="400px" borderRadius="12px" />
+      </LoadingShell>
+    </div>
+  );
   if (!project) return <div className="content-area">Project not found</div>;
   async function updateTaskField(taskId, updates) {
     await updateTask(taskId, updates);
