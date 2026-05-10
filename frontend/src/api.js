@@ -1,8 +1,7 @@
 import { auth } from './firebase';
 
-const BASE = import.meta.env.VITE_API_URL 
-  ? `${import.meta.env.VITE_API_URL}/api`
-  : 'http://localhost:5000/api';
+const API_ORIGIN = import.meta.env.VITE_API_URL?.replace(/\/$/, '');
+const BASE = API_ORIGIN ? `${API_ORIGIN}/api` : '/api';
 
 async function request(method, path, body) {
   const headers = { 'Content-Type': 'application/json' };

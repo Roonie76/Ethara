@@ -9,10 +9,11 @@ const userRoutes    = require('./routes/users');
 
 const app = express();
 
-app.use(cors({ 
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173', 
-  credentials: true 
-}));
+const corsOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim()).filter(Boolean)
+  : ['http://localhost:5173'];
+
+app.use(cors({ origin: corsOrigins, credentials: true }));
 app.use(express.json());
 
 app.use('/api/projects', projectRoutes);
@@ -20,5 +21,13 @@ app.use('/api/tasks',    taskRoutes);
 app.use('/api/users',    userRoutes);
 
 app.get('/api/health', (_, res) => res.json({ status: 'ok' }));
+
+const frontendDist = path.resolve(__dirname, '../frontend/dist');
+
+app.use(express.static(frontendDist));
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api/')) return next();
+  res.sendFile(path.join(frontendDist, 'index.html'));
+});
 
 module.exports = app;

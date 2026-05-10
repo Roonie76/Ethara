@@ -68,6 +68,48 @@ Ethara is a state-of-the-art, full-stack project management solution designed fo
 
 ---
 
+## Railway Deployment
+
+This repo is configured to deploy as one Railway web service:
+- Railway builds the React app with `npm run build`.
+- Express serves `frontend/dist` and the backend API from the same public URL.
+- `/api/health` is used as the Railway healthcheck.
+- `npm run migrate` runs before each deploy to create missing PostgreSQL tables without resetting data.
+
+### Railway setup
+
+Fast path from this repo:
+
+1. Create a Railway token at `https://railway.com/account/tokens`.
+2. In PowerShell, run:
+   ```powershell
+   $env:RAILWAY_TOKEN='paste-token-here'
+   .\scripts\deploy-railway.ps1
+   ```
+
+Manual setup:
+
+1. Create a Railway project and add a PostgreSQL service.
+2. Add this repository as a Railway service.
+3. In the app service variables, set:
+   ```env
+   DATABASE_URL=${{Postgres.DATABASE_URL}}
+   FIREBASE_SERVICE_ACCOUNT_JSON={"type":"service_account", ...}
+   VITE_FIREBASE_API_KEY=...
+   VITE_FIREBASE_AUTH_DOMAIN=...
+   VITE_FIREBASE_PROJECT_ID=...
+   VITE_FIREBASE_STORAGE_BUCKET=...
+   VITE_FIREBASE_MESSAGING_SENDER_ID=...
+   VITE_FIREBASE_APP_ID=...
+   VITE_FIREBASE_MEASUREMENT_ID=...
+   ```
+4. Leave `VITE_API_URL` unset on Railway so the frontend calls the same deployed service at `/api`.
+5. Deploy. After the first deploy, use the generated Railway public URL in Firebase Authentication as an authorized domain.
+
+For local development, keep `frontend/.env` using `VITE_API_URL=http://localhost:5000`.
+
+---
+
 ## Security & Workflow
 
 Ethara enforces strict workflow rules to ensure project integrity:
@@ -81,4 +123,3 @@ Ethara enforces strict workflow rules to ensure project integrity:
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
-
