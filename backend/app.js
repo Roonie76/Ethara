@@ -19,15 +19,6 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/tasks',    taskRoutes);
 app.use('/api/users',    userRoutes);
 
-// Serve static files from the React frontend app
-app.use(express.static(path.join(process.cwd(), 'frontend/dist')));
-
 app.get('/api/health', (_, res) => res.json({ status: 'ok' }));
-
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
-app.get('*', (req, res) => {
-  res.sendFile(path.join(process.cwd(), 'frontend/dist/index.html'));
-});
 
 module.exports = app;
