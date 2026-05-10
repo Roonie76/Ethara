@@ -43,3 +43,6 @@ frontend/.env.local
 # Docker
 .docker/
 docker-compose.override.yml
+
+# Scripts
+run.ps1
