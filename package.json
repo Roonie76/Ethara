@@ -6,6 +6,9 @@
     "start": "node backend/server.js",
     "seed": "node backend/seed.js"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.4.2",
