@@ -1,6 +1,8 @@
 import { auth } from './firebase';
 
-const BASE = 'http://localhost:5000/api';
+const BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ? 'http://localhost:5000/api'
+  : '/api';
 
 async function request(method, path, body) {
   const headers = { 'Content-Type': 'application/json' };
