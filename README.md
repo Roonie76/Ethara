@@ -1,7 +1,7 @@
 # Ethara
-**Premium AI-Powered Project Management Platform**
+**Project Management Platform**
 
-Ethara is a state-of-the-art, full-stack project management solution designed for modern teams. It combines a high-performance Node.js backend with a stunning, glassmorphism-inspired React frontend to provide a seamless workflow for project planning, task tracking, and team collaboration.
+Ethara is a state-of-the-art, full-stack project management solution designed for modern teams. It combines a high-performance Node.js backend with a stunning, React frontend to provide a seamless workflow for project planning, task tracking, and team collaboration.
 
 ---
 
